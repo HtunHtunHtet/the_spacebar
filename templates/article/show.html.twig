@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+<h1>{{ title }}</h1>
+
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Aenean nunc risus, tempor vitae egestas quis, porta a felis. Aliquam at sagittis augue.
+    In hac habitasse platea dictumst. Quisque porttitor dolor in nisi dapibus eleifend. Vivamus ac mattis lorem.
+    Phasellus vel convallis metus. Fusce tristique dapibus ligula, quis bibendum mauris facilisis in.
+    Donec fringilla consequat congue. Suspendisse mollis facilisis urna ac malesuada. Maecenas malesuada venenatis nulla. Integer turpis urna, lobortis vitae urna at, convallis vestibulum nibh. Duis scelerisque porta fermentum.
+</p>
+
+<h2>Comments ({{ comments | length }}) </h2>
+
+<ul>
+    {% for comment in comments %}
+        <li>{{ comment }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

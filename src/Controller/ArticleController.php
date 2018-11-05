@@ -4,9 +4,10 @@
 	
 	
 	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Symfony\Component\HttpFoundation\Response;
 	
-	class ArticleController
+	class ArticleController extends AbstractController
 	{
 		/**
 		 * @Route("/")
@@ -22,10 +23,18 @@
 		 */
 		public function show($slug)
 		{
-			return new Response(sprintf(
-				"Future Page to show one space article: %s",
-				$slug
-				)
-			);
+			
+			$comments = [
+				'Comment 1',
+				'HHH Comment',
+				'WLT Comment',
+				'Mom Comment',
+				'Dad comment'
+			];
+			
+			return $this->render('article/show.html.twig', [
+				'title' => ucwords(str_replace('-',' ',$slug)),
+				'comments' =>$comments
+			]);
 		}
 	}
