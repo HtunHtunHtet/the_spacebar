@@ -2,4 +2,5 @@
 <ul> 
     <li>composer require server</li>
     <li>composer require annotation </li>
+    <li>composer require sec-checker</li>
 </ul>
