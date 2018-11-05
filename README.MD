@@ -7,4 +7,5 @@
     <li> symfony profiler  - composer require profiler --dev </li>
     <li> monologs, debug tools and other libraries - composer require debug --dev </li>
     <li> removing packs - composer unpack debug </li>
+    <li> Symfony assets - composer require asset</li>
 </ul>
