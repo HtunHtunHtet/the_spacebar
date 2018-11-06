@@ -67,7 +67,8 @@
                                     belly tongue alcatra, shoulder excepteur in beef bresaola duis ham bacon eiusmod. Doner drumstick short loin,
                                     adipisicing cow cillum tenderloin.
 EOF;
-
+			
+			dump($cache);die;
 			
 			$item= $cache->getItem('markdown_'.md5($articlContent));
 			
@@ -79,7 +80,7 @@ EOF;
 			//fetch the value from the cache
 			$articlContent = $item->get();
 			
-			dump($markdown);die;
+			//dump($markdown);die;
 			
 			//dump($slug,$this);
 			
