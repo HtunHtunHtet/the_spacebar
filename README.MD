@@ -8,4 +8,5 @@
     <li> monologs, debug tools and other libraries - composer require debug --dev </li>
     <li> removing packs - composer unpack debug </li>
     <li> Symfony assets - composer require asset</li>
+    <li> Knp Markdown Bundle -composer require knplabs/knp-markdown-bundle </li>
 </ul>

@@ -7,6 +7,7 @@
 	use Psr\Log\LoggerInterface;
 	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+	use Symfony\Component\Cache\Adapter\AdapterInterface;
 	use Symfony\Component\HttpFoundation\JsonResponse;
 	use Symfony\Component\HttpFoundation\Response;
 	use Twig\Environment;
@@ -25,7 +26,7 @@
 		/**
 		 * @Route("/news/{slug}", name="article_show")
 		 */
-		public function show($slug, Environment $twigEnvironment, MarkdownInterface $markdown)
+		public function show($slug, Environment $twigEnvironment, MarkdownInterface $markdown, AdapterInterface $cache)
 		{
 			
 			$comments = [
@@ -41,7 +42,7 @@
 									Spicy jalapeno bacon*** ipsum dolor amet veniam shank in dolore. Ham hock nisi landjaeger cow,
                                     lorem proident beef[beef ribs](https://baconipsum.com/) ribs aute enim veniam ut cillum pork chuck picanha. Dolore reprehenderit
                                     labore minim pork belly spare ribs cupim short loin in. Elit exercitation eiusmod dolore cow
-                                    turkey shank eu pork belly meatball non cupim.
+                                    **turkey** shank eu pork belly meatball non cupim.
                                     
                                     Laboris beef ribs fatback fugiat eiusmod jowl kielbasa alcatra dolore velit ea ball tip. Pariatur
                                     laboris sunt venison, et laborum dolore minim non meatball. Shankle eu flank aliqua shoulder,
@@ -67,7 +68,18 @@
                                     adipisicing cow cillum tenderloin.
 EOF;
 
-			$articlContent = $markdown->transform($articlContent);
+			
+			$item= $cache->getItem('markdown_'.md5($articlContent));
+			
+			if(!$item -> isHit()){
+				$item->set($markdown->transform($articlContent));
+				$cache->save($item);
+			}
+			
+			//fetch the value from the cache
+			$articlContent = $item->get();
+			
+			dump($markdown);die;
 			
 			//dump($slug,$this);
 			
