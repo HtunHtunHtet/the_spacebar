@@ -2,15 +2,13 @@
 	
 	namespace App\Controller;
 	
-	
-	use Michelf\MarkdownInterface;
 	use Psr\Log\LoggerInterface;
 	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-	use Symfony\Component\Cache\Adapter\AdapterInterface;
 	use Symfony\Component\HttpFoundation\JsonResponse;
 	use Symfony\Component\HttpFoundation\Response;
 	use Twig\Environment;
+	use App\Services\MarkdownHelper;
 	
 	class ArticleController extends AbstractController
 	{
@@ -26,7 +24,7 @@
 		/**
 		 * @Route("/news/{slug}", name="article_show")
 		 */
-		public function show($slug, Environment $twigEnvironment, MarkdownInterface $markdown, AdapterInterface $cache)
+		public function show($slug, Environment $twigEnvironment, MarkdownHelper $markdownHelper)
 		{
 			
 			$comments = [
@@ -68,17 +66,10 @@
                                     adipisicing cow cillum tenderloin.
 EOF;
 			
-			dump($cache);die;
+			$articlContent = $markdownHelper->parse(
+				$articlContent
+			);
 			
-			$item= $cache->getItem('markdown_'.md5($articlContent));
-			
-			if(!$item -> isHit()){
-				$item->set($markdown->transform($articlContent));
-				$cache->save($item);
-			}
-			
-			//fetch the value from the cache
-			$articlContent = $item->get();
 			
 			//dump($markdown);die;
 			
